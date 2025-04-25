@@ -1,9 +1,7 @@
 <?php
-namespace ParentRole\Controllers;
+namespace ParentRole;
 
-use StudipController;
-
-class AdminController extends StudipController
+class AdminController extends \StudipController
 {
     public function index_action()
     {

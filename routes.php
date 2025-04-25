@@ -1,4 +1,4 @@
 <?php
 return [
-    '/admin' => 'ParentRole\Controllers\AdminController#index',
+    '/' => 'ParentRole\Controllers\AdminController#index',
 ];

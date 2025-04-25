@@ -33,7 +33,6 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
 
     public function perform($unconsumed_path)
     {
-        $this->setupAutoload();
         $dispatcher = new Trails_Dispatcher($this->getPluginPath());
         $dispatcher->dispatch($unconsumed_path);
     }

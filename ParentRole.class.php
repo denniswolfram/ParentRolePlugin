@@ -33,9 +33,14 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
 
     public function perform($unconsumed_path)
     {
-        $dispatcher = new Trails_Dispatcher($this->getPluginPath(), $this, $unconsumed_path);
-        $dispatcher->dispatch($unconsumed_path);
+    $dispatcher = new Trails_Dispatcher(
+        $this->getPluginPath(),
+        rtrim(PluginEngine::getLink($this, [], null), '/'),
+        'admin'
+    );
+    $dispatcher->dispatch($unconsumed_path);
     }
+
 
     // Rechteüberprüfung in Kursen
     public function courseAccessHook($course_id, $user_id)

@@ -1,5 +1,5 @@
 <?php
-namespace ParentRole;
+namespace ParentRole\Controllers;
 
 use StudipController;
 

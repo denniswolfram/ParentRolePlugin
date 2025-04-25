@@ -14,7 +14,7 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
         if ($GLOBALS['perm']->have_perm('root')) {
             $nav = new Navigation(
                 'Elternverwaltung',
-                PluginEngine::getURL($this, [], 'parentrole/admin')
+                PluginEngine::getURL($this, [], '')
             );
             Navigation::addItem('/admin/config/parentrole', $nav);
         }

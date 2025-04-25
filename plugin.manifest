@@ -1,0 +1,7 @@
+pluginclassname = ParentRole
+pluginname = Elternrolle
+version = 1.0
+description = Ermöglicht Elternaccounts mit Leserechten für Kinderkurse
+author = Dennis Wolfram
+homepage = https://github.com/denniswolfram/ParentRolePlugin
+studipMinVersion = 5.4

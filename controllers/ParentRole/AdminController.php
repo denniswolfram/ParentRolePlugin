@@ -7,19 +7,18 @@ class AdminController extends StudipController
 {
     public function index_action()
     {
-        // Eltern-Kind-Beziehungen aus der Datenbank laden
+        // Beispiel: Eltern-Kind-Beziehungen laden
         $this->relations = $this->loadParentChildRelations();
 
-        // Kein Layout verwenden (Template wird direkt gerendert)
+        // Kein Layout verwenden
         $this->set_layout(null);
 
-        // Template aus dem Plugin-Ordner anzeigen
+        // Template rendern
         $this->render_template('parent_settings.php');
     }
 
     private function loadParentChildRelations()
     {
-        // Beispiel: Daten aus der Tabelle parent_student_relations holen
         return \DBManager::get()->fetchAll("
             SELECT parent_id, student_id, verified 
             FROM parent_student_relations

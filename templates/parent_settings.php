@@ -1,13 +1,9 @@
 <?php
 // Eltern-Kind-Verknüpfungsformular
 ?>
-<form action="<?= PluginEngine::getLink($plugin, [], 'link') ?>" method="post">
-    <label>Elternaccount:
-        <input type="text" name="parent_id" required>
-    </label>
-    <label>Schüleraccount:
-        <input type="text" name="student_id" required>
-    </label>
+<form action="<?= $controller->url_for('admin/link') ?>" method="post">
+    <label>Eltern-ID: <input type="text" name="parent_id" required></label>
+    <label>Schüler-ID: <input type="text" name="student_id" required></label>
     <button type="submit">Verknüpfen</button>
 </form>
 
@@ -19,8 +15,8 @@
     </tr>
     <?php foreach ($relations as $rel): ?>
     <tr>
-        <td><?= htmlReady($rel['parent']) ?></td>
-        <td><?= htmlReady($rel['student']) ?></td>
+        <td><?= htmlReady($rel['parent_id']) ?></td>
+        <td><?= htmlReady($rel['student_id']) ?></td>
         <td><?= $rel['verified'] ? '✅' : '❌' ?></td>
     </tr>
     <?php endforeach ?>

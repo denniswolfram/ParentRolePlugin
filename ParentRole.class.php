@@ -16,7 +16,7 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
                 'Elternverwaltung',
                 PluginEngine::getURL($this, [], 'admin')
             );
-            Navigation:AaddItem('/parentrole', $nav);
+            Navigation:addItem('/parentrole', $nav);
         }
     }
 

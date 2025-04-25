@@ -4,15 +4,18 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
     public function __construct()
     {
         parent::__construct();
-
-        // Rolle "Eltern" bei Aktivierung anlegen
+        
+        // Elternrolle bei Aktivierung anlegen
         if ($this->isActivated()) {
             $this->createParentRole();
         }
 
-        // Admin-Oberfläche hinzufügen
+        // Admin-Navigation hinzufügen
         if ($GLOBALS['perm']->have_perm('root')) {
-            $nav = new Navigation('Elternverwaltung', PluginEngine::getURL($this, [], 'admin'));
+            $nav = new Navigation(
+                'Elternverwaltung',
+                PluginEngine::getURL($this, [], 'admin/config/parentrole')
+            );
             Navigation::addItem('/admin/config/parentrole', $nav);
         }
     }
@@ -25,7 +28,7 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
         $role->copyable = false;
         $role->writable = false;
         $role->description = 'Eltern mit Leserechten für Kinderkurse';
-
+        
         if (!$role->store()) {
             throw new Exception("Elternrolle konnte nicht angelegt werden");
         }
@@ -33,21 +36,19 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
 
     public function perform($unconsumed_path)
     {
-    $dispatcher = new Trails_Dispatcher(
-        $this->getPluginPath(),
-        rtrim(PluginEngine::getLink($this, [], null), '/'),
-        'admin'
-    );
-    $dispatcher->dispatch($unconsumed_path);
+        $dispatcher = new Trails_Dispatcher(
+            $this->getPluginPath(),
+            rtrim(PluginEngine::getLink($this, [], null), '/'),
+            'parentrole' // WICHTIG: Eindeutiger Basis-Pfad
+        );
+        $dispatcher->dispatch($unconsumed_path);
     }
-
 
     // Rechteüberprüfung in Kursen
     public function courseAccessHook($course_id, $user_id)
     {
         $user = User::find($user_id);
         if ($user->perms === 'parent') {
-            // Nur Leserechte
             return ['read' => true, 'write' => false];
         }
     }

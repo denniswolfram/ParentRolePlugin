@@ -1,18 +1,18 @@
 <?php
-namespace ParentRole;
+namespace ParentRole\Controllers;
 
 class AdminController extends \StudipController
 {
     public function index_action()
     {
-        // Beispiel: Eltern-Kind-Beziehungen laden
+        // Eltern-Kind-Beziehungen aus der Datenbank laden
         $this->relations = $this->loadParentChildRelations();
 
-        // Kein Layout verwenden
+        // Kein Layout verwenden (Template wird direkt gerendert)
         $this->set_layout(null);
 
-        // Template rendern
-        $this->render_template('parent_settings.php');
+        // Template aus dem Plugin-Ordner anzeigen
+        $this->render_template('../templates/parent_settings.php');
     }
 
     private function loadParentChildRelations()

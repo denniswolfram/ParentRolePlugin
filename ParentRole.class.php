@@ -1,22 +1,13 @@
 <?php
-class ParentRole extends StudIPPlugin implements SystemPlugin
+class ParentRole extends StudIPPlugin implements SystemPlugin, AdminNavigation
 {
     public function __construct()
     {
         parent::__construct();
-        
+
         // Elternrolle bei Aktivierung anlegen
         if ($this->isActivated()) {
             $this->createParentRole();
-        }
-
-        // Admin-Navigation hinzufügen
-        if ($GLOBALS['perm']->have_perm('root')) {
-            $nav = new Navigation(
-                'Elternverwaltung',
-                PluginEngine::getURL($this, [], 'admin')
-            );
-            Navigation::addItem('/parentrole', $nav);
         }
     }
 
@@ -28,7 +19,7 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
         $role->copyable = false;
         $role->writable = false;
         $role->description = 'Eltern mit Leserechten für Kinderkurse';
-        
+
         if (!$role->store()) {
             throw new Exception("Elternrolle konnte nicht angelegt werden");
         }
@@ -39,8 +30,18 @@ class ParentRole extends StudIPPlugin implements SystemPlugin
         $dispatcher = new Trails_Dispatcher(
             $this->getPluginPath(),
             rtrim(PluginEngine::getLink($this, [], null), '/'),
-            'parentrole' // Basis-Pfad
+            'parentrole'
         );
         $dispatcher->dispatch($unconsumed_path);
+    }
+
+    // Diese Methode sorgt für den Link im Admin-Menü
+    public function getAdminNavigation()
+    {
+        $nav = new Navigation(
+            'Elternverwaltung',
+            PluginEngine::getURL($this, [], 'admin')
+        );
+        return $nav;
     }
 }
